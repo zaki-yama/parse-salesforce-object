@@ -10,5 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "fs-extra": "^1.0.0",
+    "json2csv": "^3.7.3",
+    "xml2js": "^0.4.17"
   }
 }
