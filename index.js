@@ -16,10 +16,8 @@ const props = [
 ];
 const dataList = [];
 
-fs.readFile(__dirname + '/MyObj__c.object', function(err, data) {
+fs.readFile(process.argv[2], function(err, data) {
   parser.parseString(data, function (err, result) {
-    // console.dir(result);
-
     for (const field of result.CustomObject.fields) {
       const data = {};
       for (const property of props) {
