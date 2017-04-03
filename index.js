@@ -16,8 +16,8 @@ const props = [
 ];
 const dataList = [];
 
-fs.readFile(process.argv[2], function(err, data) {
-  parser.parseString(data, function (err, result) {
+fs.readFile(process.argv[2], (err, data) => {
+  parser.parseString(data, (err, result) => {
     for (const field of result.CustomObject.fields) {
       const data = {};
       for (const property of props) {
