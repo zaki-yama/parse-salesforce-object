@@ -6,6 +6,9 @@ const json2csv = require('json2csv');
 const gfmt = require('gfmt');
 const chalk = require('chalk');
 
+const argv = require('minimist')(process.argv.slice(2));
+const path = argv._[0];
+
 const props = [
   'label',
   'fullName',
@@ -19,12 +22,12 @@ const props = [
 ];
 const dataList = [];
 
-if (!process.argv[2]) {
+if (!path) {
   console.log(chalk.red('ERROR: You must specify a path to .object file.'));
   process.exit(1);
 }
 
-fs.readFile(process.argv[2], (err, data) => {
+fs.readFile(path, (err, data) => {
   parser.parseString(data, (err, result) => {
     if (err || !(result.CustomObject && result.CustomObject.fields)) {
       console.log(chalk.red('ERROR: Invalid XML format.'));
@@ -39,9 +42,14 @@ fs.readFile(process.argv[2], (err, data) => {
     }
   });
 
-  const csv = json2csv({ data: dataList, fields: props });
-  console.log(csv);
-
-  const table = gfmt(dataList);
-  console.log(table);
+  const format = argv.f || argv.format;
+  let result;
+  switch (format) {
+    case 'csv':
+      result = json2csv({ data: dataList, fields: props });
+      break;
+    default:
+      result = gfmt(dataList);
+  }
+  console.log(result);
 });
