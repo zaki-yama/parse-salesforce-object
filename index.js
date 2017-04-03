@@ -1,6 +1,6 @@
 #! /usr/bin/env node
-const xml2js  = require('xml2js');
 const fs = require('fs-extra');
+const xml2js  = require('xml2js');
 const parser = new xml2js.Parser();
 const json2csv = require('json2csv');
 const gfmt = require('gfmt');
@@ -10,10 +10,10 @@ const props = [
   'fullName',
   'type',
   'required',
-  'externalId',
+  // 'externalId',
   // 'caseSensitive',
   // 'length',
-  'trackTrending',
+  // 'trackTrending',
   // 'unique',
 ];
 const dataList = [];
@@ -25,10 +25,8 @@ fs.readFile(process.argv[2], (err, data) => {
       for (const property of props) {
         data[property] = field[property] ? field[property][0] : null;
       }
-      // console.log(data);
       dataList.push(data);
     }
-    // console.log('Done');
   });
 
   const csv = json2csv({ data: dataList, fields: props });
