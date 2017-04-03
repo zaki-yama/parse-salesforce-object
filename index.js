@@ -4,6 +4,7 @@ const xml2js  = require('xml2js');
 const parser = new xml2js.Parser();
 const json2csv = require('json2csv');
 const gfmt = require('gfmt');
+const chalk = require('chalk');
 
 const props = [
   'label',
@@ -18,8 +19,17 @@ const props = [
 ];
 const dataList = [];
 
+if (!process.argv[2]) {
+  console.log(chalk.red('ERROR: You must specify a path to .object file.'));
+  process.exit(1);
+}
+
 fs.readFile(process.argv[2], (err, data) => {
   parser.parseString(data, (err, result) => {
+    if (err || !(result.CustomObject && result.CustomObject.fields)) {
+      console.log(chalk.red('ERROR: Invalid XML format.'));
+      process.exit(1);
+    }
     for (const field of result.CustomObject.fields) {
       const data = {};
       for (const property of props) {
