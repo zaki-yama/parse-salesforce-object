@@ -42,9 +42,14 @@ fs.readFile(path, (err, data) => {
     }
   });
 
-  const csv = json2csv({ data: dataList, fields: props });
-  console.log(csv);
-
-  const table = gfmt(dataList);
-  console.log(table);
+  const format = argv.f || argv.format;
+  let result;
+  switch (format) {
+    case 'csv':
+      result = json2csv({ data: dataList, fields: props });
+      break;
+    default:
+      result = gfmt(dataList);
+  }
+  console.log(result);
 });
