@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const xml2js  = require('xml2js');
 const fs = require('fs-extra');
 const parser = new xml2js.Parser();
