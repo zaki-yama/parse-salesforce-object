@@ -1,6 +1,6 @@
 {
   "name": "parse-sf-obj",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Convert Custom Object's metadata to Markdown/CSV format",
   "main": "index.js",
   "preferGlobal": true,
