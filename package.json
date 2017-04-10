@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV format",
   "main": "index.js",
+  "keywords": [
+    "salesforce"
+  ],
   "preferGlobal": true,
   "bin": {
     "parseSfObj": "index.js"
