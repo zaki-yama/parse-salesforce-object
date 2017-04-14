@@ -1,6 +1,6 @@
 {
   "name": "parse-salesforce-object",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV format",
   "main": "index.js",
   "url": "https://github.com/zaki-yama/parse-salesforce-object",
