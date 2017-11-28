@@ -13,7 +13,7 @@ $ npm install -g parse-salesforce-object
 
 ```zsh
 # Display as Markdown table
-$ sfobj path/to/CustomObject__c.object
+$ parse-salesforce-object path/to/CustomObject__c.object
 | label       | fullName      | type     | required |
 | ----------- | ------------- | -------- | -------- |
 | Amount      | Amount__c     | Number   | false    |
@@ -22,7 +22,7 @@ $ sfobj path/to/CustomObject__c.object
 | Reimbursed? | Reimbursed__c | Checkbox | null     |
 
 # Use `--format=csv` (or `-f csv`) to display as CSV
-$ sfobj --format=csv path/to/CustomObject__c.object
+$ parse-salesforce-object --format=csv path/to/CustomObject__c.object
 "label","fullName","type","required"
 "Amount","Amount__c","Number","false"
 "Client","Client__c","Text","false"
@@ -30,7 +30,7 @@ $ sfobj --format=csv path/to/CustomObject__c.object
 "Reimbursed?","Reimbursed__c","Checkbox",
 
 # It also supports `--format=soql` (or `-f soql`) to display as SOQL query format.
-$ sfobj --format=soql path/to/CustomObject__c.object
+$ parse-salesforce-object --format=soql path/to/CustomObject__c.object
 SELECT Id,
 Amount__c,
 Client__c,
@@ -39,7 +39,7 @@ Reimbursed__c
 FROM CustomObject__c
 
 # SOQL format with namespace prefix
-$ sfobj --format=soql --namespace=foo path/to/CustomObject__c.object
+$ parse-salesforce-object --format=soql --namespace=foo path/to/CustomObject__c.object
 SELECT Id,
 foo__Amount__c,
 foo__Client__c,
