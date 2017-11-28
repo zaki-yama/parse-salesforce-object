@@ -3,7 +3,7 @@ parse-salesforce-object
 
 [![NPM](https://nodei.co/npm/parse-salesforce-object.png)](https://nodei.co/npm/parse-salesforce-object/)
 
-Parse Salesforce object metadata (e.g. `Foo__c.object`) and display fields as Markdown/CSV.
+Parse Salesforce object metadata (e.g. `Foo__c.object`) and display fields as Markdown/CSV/SOQL.
 
 ## Installation
 
