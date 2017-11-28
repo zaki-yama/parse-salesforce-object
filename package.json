@@ -1,7 +1,7 @@
 {
   "name": "parse-salesforce-object",
-  "version": "0.0.4",
-  "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV format",
+  "version": "0.0.5",
+  "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV/SOQL format",
   "main": "index.js",
   "repository": {
     "type" : "git",
@@ -12,7 +12,7 @@
   ],
   "preferGlobal": true,
   "bin": {
-    "sfobj": "index.js"
+    "parse-salesforce-object": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
