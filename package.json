@@ -1,31 +1,45 @@
 {
   "name": "parse-salesforce-object",
-  "version": "0.0.5",
   "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV/SOQL format",
-  "main": "index.js",
-  "repository": {
-    "type" : "git",
-    "url": "https://github.com/zaki-yama/parse-salesforce-object"
-  },
-  "keywords": [
-    "salesforce"
-  ],
-  "preferGlobal": true,
-  "bin": {
-    "parse-salesforce-object": "index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "version": "0.0.5",
   "author": "Shingo Yamazaki",
-  "license": "MIT",
+  "bin": {
+    "parse-salesforce-object": "./bin/run"
+  },
+  "bugs": "https://github.com/zaki-yama/parse-salesforce-object/issues",
   "dependencies": {
-    "chalk": "^1.1.3",
-    "fs-extra": "^1.0.0",
-    "gfmt": "^1.0.0",
-    "json2csv": "^3.7.3",
-    "minimist": "^1.2.0",
-    "xml2js": "^0.4.17"
+    "@oclif/command": "^1.4.6",
+    "@oclif/config": "^1.3.62",
+    "@oclif/plugin-help": "^1.2.2"
+  },
+  "devDependencies": {
+    "@oclif/test": "^1.0.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-oclif": "^1.4.0",
+    "mocha": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/src"
+  ],
+  "homepage": "https://github.com/zaki-yama/parse-salesforce-object",
+  "keywords": [
+    "oclif",
+    "Salesforce"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "bin": "parse-salesforce-object"
+  },
+  "repository": "zaki-yama/parse-salesforce-object",
+  "scripts": {
+    "lint": "eslint .",
+    "posttest": "yarn run lint",
+    "test": "mocha --forbid-only \"test/**/*.test.js\""
   }
 }
