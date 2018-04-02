@@ -7,7 +7,8 @@ import json2csv from 'json2csv'
 import {parseString} from 'xml2js'
 
 class ParseSalesforceObject extends Command {
-  static description = 'describe the command here'
+  // TODO
+  // static description = 'describe the command here'
 
   static examples = [
     `$ parse-salesforce-object src/objects/Expense__c.object
