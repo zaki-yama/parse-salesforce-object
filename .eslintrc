@@ -1,0 +1,6 @@
+{
+  "extends": "oclif",
+  "rules": {
+    "no-case-declarations": "off"
+  }
+}
