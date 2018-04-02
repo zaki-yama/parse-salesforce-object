@@ -1,6 +1,12 @@
 parse-salesforce-object
 =======================
 
+[![Version](https://img.shields.io/npm/v/parse-salesforce-object.svg)](https://npmjs.org/package/parse-salesforce-object)
+[![CircleCI](https://circleci.com/gh/zaki-yama/parse-salesforce-object/tree/master.svg?style=shield)](https://circleci.com/gh/zaki-yama/parse-salesforce-object/tree/master)
+[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/zaki-yama/parse-salesforce-object?branch=master&svg=true)](https://ci.appveyor.com/project/zaki-yama/parse-salesforce-object/branch/master)
+[![Codecov](https://codecov.io/gh/zaki-yama/parse-salesforce-object/branch/master/graph/badge.svg)](https://codecov.io/gh/zaki-yama/parse-salesforce-object)
+[![Downloads/week](https://img.shields.io/npm/dw/parse-salesforce-object.svg)](https://npmjs.org/package/parse-salesforce-object)
+[![License](https://img.shields.io/npm/l/parse-salesforce-object.svg)](https://github.com/zaki-yama/parse-salesforce-object/blob/master/package.json)
 [![NPM](https://nodei.co/npm/parse-salesforce-object.png)](https://nodei.co/npm/parse-salesforce-object/)
 
 Parse Salesforce object metadata (e.g. `Foo__c.object`) and display fields as Markdown/CSV/SOQL.
