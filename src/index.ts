@@ -1,4 +1,5 @@
 import {Command, flags} from '@oclif/command'
+import * as fs from 'fs'
 
 class ParseSalesforceObject extends Command {
   static description = 'describe the command here'
@@ -20,16 +21,18 @@ hello world from ./src/parse-salesforce-object.ts!
     force: flags.boolean({char: 'f'}),
   }
 
-  static args = [{name: 'file'}]
+  static args = [{
+    name: 'path',
+    description: 'path to .object file',
+    required: true,
+  }]
 
   async run() {
     const {args, flags} = this.parse(ParseSalesforceObject)
 
-    const name = flags.name || 'world'
-    this.log(`hello ${name} from ${__filename}!`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    fs.readFile(args.path, (err, data) => {
+      // TODO
+    })
   }
 }
 
