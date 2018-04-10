@@ -6,7 +6,7 @@ describe('parse-salesforce-object', () => {
   test
   .stdout()
   .do(() => cmd.run(['./test/Expense__c.object']))
-  .it('formats as Markdown table when giving no option', ctx => {
+  .it('no option (markdown)', ctx => {
     const expected = `| label       | fullName      | type     | required |
 | ----------- | ------------- | -------- | -------- |
 | Amount      | Amount__c     | Number   | false    |
@@ -18,8 +18,14 @@ describe('parse-salesforce-object', () => {
 
   test
   .stdout()
-  .do(() => cmd.run(['--name', 'jeff']))
-  .it('runs hello --name jeff', ctx => {
-    expect(ctx.stdout).to.contain('hello jeff')
+  .do(() => cmd.run(['--format=csv', './test/Expense__c.object']))
+  .it('--format=csv (csv)', ctx => {
+    const expected = `"label","fullName","type","required"
+"Amount","Amount__c","Number","false"
+"Client","Client__c","Text","false"
+"Date","Date__c","DateTime","false"
+"Reimbursed?","Reimbursed__c","Checkbox",
+`
+    expect(ctx.stdout).to.contain(expected)
   })
 })
