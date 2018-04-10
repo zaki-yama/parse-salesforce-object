@@ -6,6 +6,17 @@ import * as gfmt from 'gfmt'
 import json2csv from 'json2csv'
 import {parseString} from 'xml2js'
 
+async function xml2js(xml: string) {
+  return new Promise((resolve, reject) => {
+    new parseString(xml, function (err: Error, json: string) {
+      if (err)
+        reject(err)
+      else
+        resolve(json)
+    })
+  })
+}
+
 class ParseSalesforceObject extends Command {
   // TODO
   // static description = 'describe the command here'
@@ -60,22 +71,22 @@ class ParseSalesforceObject extends Command {
     ]
     const dataList = []
 
-    fs.readFile(args.path, (err, data) => {
-      new parseString(data, (err, result) => {
-        if (err || !(result.CustomObject && result.CustomObject.fields)) {
-          this.error('ERROR: Invalid XML format.')
+    const xml = fs.readFileSync(args.path, 'utf-8')
+    try {
+      const parsed = await xml2js(xml)
+      for (const field of parsed.CustomObject.fields) {
+        const data = {}
+        for (const property of props) {
+          data[property] = field[property] ? field[property][0] : null
         }
-        for (const field of result.CustomObject.fields) {
-          const data = {}
-          for (const property of props) {
-            data[property] = field[property] ? field[property][0] : null
-          }
-          dataList.push(data)
-        }
-      })
+        dataList.push(data)
+      }
+    } catch (err) { // tslint:disable-line no-unused
+        this.error('ERROR: Invalid XML format.')
+    }
 
-      let result
-      switch (flags.format) {
+    let result
+    switch (flags.format) {
       case 'soql':
         const prefix = flags.namespace ? `${flags.namespace}__` : ''
         const objName = path.basename(args.path).split('.')[0]
@@ -94,9 +105,8 @@ class ParseSalesforceObject extends Command {
       default:
         // markdown
         result = gfmt(dataList)
-      }
-      this.log(result)
-    })
+    }
+    this.log(result)
   }
 }
 
