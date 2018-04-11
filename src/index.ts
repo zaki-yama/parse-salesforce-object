@@ -3,8 +3,19 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import * as gfmt from 'gfmt'
-import json2csv from 'json2csv'
+import {parse} from 'json2csv'
 import {parseString} from 'xml2js'
+
+async function xml2js(xml: string) {
+  return new Promise((resolve, reject) => {
+    parseString(xml, function (err: Error, json: string) {
+      if (err)
+        reject(err)
+      else
+        resolve(json)
+    })
+  })
+}
 
 class ParseSalesforceObject extends Command {
   // TODO
@@ -60,22 +71,22 @@ class ParseSalesforceObject extends Command {
     ]
     const dataList = []
 
-    fs.readFile(args.path, (err, data) => {
-      new parseString(data, (err, result) => {
-        if (err || !(result.CustomObject && result.CustomObject.fields)) {
-          this.error('ERROR: Invalid XML format.')
+    const xml = fs.readFileSync(args.path, 'utf-8')
+    try {
+      const parsed = await xml2js(xml)
+      for (const field of parsed.CustomObject.fields) {
+        const data = {}
+        for (const property of props) {
+          data[property] = field[property] ? field[property][0] : null
         }
-        for (const field of result.CustomObject.fields) {
-          const data = {}
-          for (const property of props) {
-            data[property] = field[property] ? field[property][0] : null
-          }
-          dataList.push(data)
-        }
-      })
+        dataList.push(data)
+      }
+    } catch (err) { // tslint:disable-line no-unused
+        this.error('ERROR: Invalid XML format.')
+    }
 
-      let result
-      switch (flags.format) {
+    let result
+    switch (flags.format) {
       case 'soql':
         const prefix = flags.namespace ? `${flags.namespace}__` : ''
         const objName = path.basename(args.path).split('.')[0]
@@ -89,14 +100,13 @@ class ParseSalesforceObject extends Command {
         ].join('\n')
         break
       case 'csv':
-        result = json2csv.parse(dataList, {fields: props})
+        result = parse(dataList, {fields: props})
         break
       default:
         // markdown
         result = gfmt(dataList)
-      }
-      this.log(result)
-    })
+    }
+    this.log(result)
   }
 }
 
