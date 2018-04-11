@@ -3,12 +3,12 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import * as gfmt from 'gfmt'
-import json2csv from 'json2csv'
+import {parse} from 'json2csv'
 import {parseString} from 'xml2js'
 
 async function xml2js(xml: string) {
   return new Promise((resolve, reject) => {
-    new parseString(xml, function (err: Error, json: string) {
+    parseString(xml, function (err: Error, json: string) {
       if (err)
         reject(err)
       else
@@ -100,7 +100,7 @@ class ParseSalesforceObject extends Command {
         ].join('\n')
         break
       case 'csv':
-        result = json2csv.parse(dataList, {fields: props})
+        result = parse(dataList, {fields: props})
         break
       default:
         // markdown
