@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import * as gfmt from 'gfmt'
+import * as table from 'markdown-table'
 import {parse} from 'json2csv'
 import {parseString} from 'xml2js'
 
@@ -104,7 +104,7 @@ class ParseSalesforceObject extends Command {
         break
       default:
         // markdown
-        result = gfmt(dataList)
+        result = table([props, ...dataList.map(data => Object.values(data))])
     }
     this.log(result)
   }
