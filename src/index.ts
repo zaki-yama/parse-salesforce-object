@@ -2,8 +2,9 @@ import {Command, flags} from '@oclif/command'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import * as table from 'markdown-table'
 import {parse} from 'json2csv'
+import * as table from 'markdown-table'
+import * as stringWidth from 'string-width'
 import {parseString} from 'xml2js'
 
 async function xml2js(xml: string) {
@@ -104,7 +105,9 @@ class ParseSalesforceObject extends Command {
         break
       default:
         // markdown
-        result = table([props, ...dataList.map(data => Object.values(data))])
+        result = table([props, ...dataList.map(data => Object.values(data))], {
+          stringLength: stringWidth
+        })
     }
     this.log(result)
   }
