@@ -26,6 +26,7 @@
     "@types/xml2js": "^0.4.2",
     "chai": "^4.1.2",
     "mocha": "^5.0.5",
+    "release-it": "^7.3.0",
     "ts-node": "5",
     "tslib": "^1.9.0",
     "tslint": "^5.9.1",
@@ -54,6 +55,7 @@
     "build": "rm -rf lib && tsc",
     "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
     "prepublishOnly": "yarn run build",
+    "release": "release-it",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
   "types": "lib/index.d.ts"
