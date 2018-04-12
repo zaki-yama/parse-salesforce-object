@@ -7,12 +7,12 @@ describe('parse-salesforce-object', () => {
   .stdout()
   .do(() => cmd.run(['./test/Expense__c.object']))
   .it('no option (markdown)', ctx => {
-    const expected = `| label       | fullName      | type     | required |
-| ----------- | ------------- | -------- | -------- |
-| Amount      | Amount__c     | Number   | false    |
-| Client      | Client__c     | Text     | false    |
-| Date        | Date__c       | DateTime | false    |
-| Reimbursed? | Reimbursed__c | Checkbox |          |`
+    const expected = `| label         | fullName      | type     | required |
+| ------------- | ------------- | -------- | -------- |
+| 金額          | Amount__c     | Number   | false    |
+| クライアント  | Client__c     | Text     | false    |
+| 日付          | Date__c       | DateTime | false    |
+| 払い戻し済み? | Reimbursed__c | Checkbox |          |`
     expect(ctx.stdout).to.contain(expected)
   })
 
@@ -21,10 +21,10 @@ describe('parse-salesforce-object', () => {
   .do(() => cmd.run(['--format=csv', './test/Expense__c.object']))
   .it('--format=csv (csv)', ctx => {
     const expected = `"label","fullName","type","required"
-"Amount","Amount__c","Number","false"
-"Client","Client__c","Text","false"
-"Date","Date__c","DateTime","false"
-"Reimbursed?","Reimbursed__c","Checkbox",
+"金額","Amount__c","Number","false"
+"クライアント","Client__c","Text","false"
+"日付","Date__c","DateTime","false"
+"払い戻し済み?","Reimbursed__c","Checkbox",
 `
     expect(ctx.stdout).to.contain(expected)
   })

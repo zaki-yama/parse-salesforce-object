@@ -58,7 +58,7 @@
     <fields>
         <fullName>Amount__c</fullName>
         <externalId>false</externalId>
-        <label>Amount</label>
+        <label>金額</label>
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
@@ -69,7 +69,7 @@
     <fields>
         <fullName>Client__c</fullName>
         <externalId>false</externalId>
-        <label>Client</label>
+        <label>クライアント</label>
         <length>20</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -79,7 +79,7 @@
     <fields>
         <fullName>Date__c</fullName>
         <externalId>false</externalId>
-        <label>Date</label>
+        <label>日付</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
@@ -88,7 +88,7 @@
         <fullName>Reimbursed__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <label>Reimbursed?</label>
+        <label>払い戻し済み?</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
