@@ -29,7 +29,7 @@ class ParseSalesforceObject extends Command {
 | Amount      | Amount__c     | Number   | false    |
 | Client      | Client__c     | Text     | false    |
 | Date        | Date__c       | DateTime | false    |
-| Reimbursed? | Reimbursed__c | Checkbox | null     |
+| Reimbursed? | Reimbursed__c | Checkbox |          |
 `,
   ]
 
