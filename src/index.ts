@@ -74,9 +74,11 @@ class ParseSalesforceObject extends Command {
 
     const xml = fs.readFileSync(args.path, 'utf-8')
     try {
-      const parsed = await xml2js(xml)
+      // FIXME: Avoid `any` type
+      const parsed: any = await xml2js(xml)
       for (const field of parsed.CustomObject.fields) {
-        const data = {}
+        // FIXME: Avoid `any` type
+        const data: any = {}
         for (const property of props) {
           data[property] = field[property] ? field[property][0] : null
         }

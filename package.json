@@ -54,6 +54,7 @@
   "scripts": {
     "build": "rm -rf lib && tsc",
     "lint": "tsc -p test --noEmit && tslint -p test -t stylish",
+    "posttest": "yarn run lint",
     "prepublishOnly": "yarn run build",
     "release": "release-it",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
