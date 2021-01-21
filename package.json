@@ -1,6 +1,6 @@
 {
   "name": "parse-salesforce-object",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV/SOQL format",
   "author": "Shingo Yamazaki",
   "bin": {
