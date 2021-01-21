@@ -6,6 +6,7 @@ import {parse} from 'json2csv'
 import * as table from 'markdown-table'
 import * as stringWidth from 'string-width'
 import {parseString} from 'xml2js'
+import {parseSourceFormat, fieldProperties} from './parsers/source-format'
 
 async function xml2js(xml: string) {
   return new Promise((resolve, reject) => {
@@ -59,6 +60,8 @@ class ParseSalesforceObject extends Command {
 
   async run() {
     const {args, flags} = this.parse(ParseSalesforceObject)
+    const dataList = []
+
     const props = [
       'label',
       'fullName',
@@ -70,24 +73,40 @@ class ParseSalesforceObject extends Command {
       // 'trackTrending',
       // 'unique',
     ]
-    const dataList = []
-
-    const xml = fs.readFileSync(args.path, 'utf-8')
-    try {
-      // FIXME: Avoid `any` type
-      const parsed: any = await xml2js(xml)
-      for (const field of parsed.CustomObject.fields) {
-        // FIXME: Avoid `any` type
+    if (args.path.includes('object-meta.xml')) {
+      const fields = await parseSourceFormat(args.path)
+      // eslint-disable-next-line no-console
+      console.log(fields)
+      for (const field of fields) {
         const data: any = {}
-        for (const property of props) {
+        for (const property of fieldProperties) {
+          console.log(`field[${property}]: ${field}`)
           data[property] = field[property] ? field[property][0] : null
         }
         dataList.push(data)
       }
-    // eslint-disable-next-line unicorn/catch-error-name
-    } catch (err) { // tslint:disable-line no-unused
-      this.error('ERROR: Invalid XML format.')
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('metadata format')
+      const xml = fs.readFileSync(args.path, 'utf-8')
+      try {
+        // FIXME: Avoid `any` type
+        const parsed: any = await xml2js(xml)
+        for (const field of parsed.CustomObject.fields) {
+        // FIXME: Avoid `any` type
+          const data: any = {}
+          for (const property of props) {
+            console.log('field[property]', field[property])
+            data[property] = field[property] ? field[property][0] : null
+          }
+          dataList.push(data)
+        }
+        // eslint-disable-next-line unicorn/catch-error-name
+      } catch (err) { // tslint:disable-line no-unused
+        this.error('ERROR: Invalid XML format.')
+      }
     }
+    console.log(dataList)
 
     let result
     switch (flags.format) {

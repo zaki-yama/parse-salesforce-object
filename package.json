@@ -11,6 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "glob": "^7.1.6",
     "json2csv": "^5.0.5",
     "markdown-table": "^2.0.0",
     "string-width": "^4.2.0",
