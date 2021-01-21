@@ -9,6 +9,7 @@ import {parseString} from 'xml2js'
 
 async function xml2js(xml: string) {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     parseString(xml, function (err: Error, json: string) {
       if (err)
         reject(err)
@@ -84,32 +85,34 @@ class ParseSalesforceObject extends Command {
         }
         dataList.push(data)
       }
+    // eslint-disable-next-line unicorn/catch-error-name
     } catch (err) { // tslint:disable-line no-unused
-        this.error('ERROR: Invalid XML format.')
+      this.error('ERROR: Invalid XML format.')
     }
 
     let result
     switch (flags.format) {
-      case 'soql':
-        const prefix = flags.namespace ? `${flags.namespace}__` : ''
-        const objName = path.basename(args.path).split('.')[0]
-        const fields = dataList.map(data => {
-          return `${prefix}${data.fullName}`
-        })
-        result = [
-          'SELECT Id,',
-          fields.join(',\n'),
-          `FROM ${prefix}${objName}`,
-        ].join('\n')
-        break
-      case 'csv':
-        result = parse(dataList, {fields: props})
-        break
-      default:
-        // markdown
-        result = table([props, ...dataList.map(data => Object.values(data))], {
-          stringLength: stringWidth
-        })
+    case 'soql': {
+      const prefix = flags.namespace ? `${flags.namespace}__` : ''
+      const objName = path.basename(args.path).split('.')[0]
+      const fields = dataList.map(data => {
+        return `${prefix}${data.fullName}`
+      })
+      result = [
+        'SELECT Id,',
+        fields.join(',\n'),
+        `FROM ${prefix}${objName}`,
+      ].join('\n')
+      break
+    }
+    case 'csv':
+      result = parse(dataList, {fields: props})
+      break
+    default:
+      // markdown
+      result = table([props, ...dataList.map(data => Object.values(data))], {
+        stringLength: stringWidth,
+      })
     }
     this.log(result)
   }
