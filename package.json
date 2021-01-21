@@ -46,6 +46,7 @@
   ],
   "homepage": "https://github.com/zaki-yama/parse-salesforce-object",
   "keywords": [
+    "salesforce",
     "oclif"
   ],
   "license": "MIT",
