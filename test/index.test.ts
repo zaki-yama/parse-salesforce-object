@@ -63,3 +63,33 @@ describe('Metadata format', () => {
     expect(ctx.stdout).to.contain(expected.soql_namespace)
   })
 })
+
+describe('Source format', () => {
+  test
+  .stdout()
+  .do(() => cmd.run(['./test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
+  .it('no option (markdown)', ctx => {
+    expect(ctx.stdout).to.contain(expected.markdown)
+  })
+
+  test
+  .stdout()
+  .do(() => cmd.run(['--format=csv', './test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
+  .it('--format=csv (csv)', ctx => {
+    expect(ctx.stdout).to.contain(expected.csv)
+  })
+
+  test
+  .stdout()
+  .do(() => cmd.run(['--format=soql', './test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
+  .it('--format=soql (soql)', ctx => {
+    expect(ctx.stdout).to.contain(expected.soql)
+  })
+
+  test
+  .stdout()
+  .do(() => cmd.run(['--format=soql', '--namespace=foo', './test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
+  .it('--format=soql --namespace=foo (soql format with namespace)', ctx => {
+    expect(ctx.stdout).to.contain(expected.soql_namespace)
+  })
+})
