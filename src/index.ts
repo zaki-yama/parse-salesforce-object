@@ -11,7 +11,7 @@ class ParseSalesforceObject extends Command {
   // static description = 'describe the command here'
 
   static examples = [
-    `$ parse-salesforce-object src/objects/Expense__c.object
+    `$ parse-salesforce-object force-app/main/default/objects/Expense__c/Expense__c.object-meta.xml
 | label       | fullName      | type     | required |
 | ----------- | ------------- | -------- | -------- |
 | Amount      | Amount__c     | Number   | false    |
@@ -41,7 +41,7 @@ class ParseSalesforceObject extends Command {
 
   static args = [{
     name: 'path',
-    description: 'path to .object file',
+    description: 'path to sObject file',
     required: true,
   }]
 
