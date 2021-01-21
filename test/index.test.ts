@@ -2,10 +2,10 @@ import {expect, test} from '@oclif/test'
 
 import cmd = require('../src')
 
-describe('parse-salesforce-object', () => {
+describe('Metadata format', () => {
   test
   .stdout()
-  .do(() => cmd.run(['./test/Expense__c.object']))
+  .do(() => cmd.run(['./test/fixtures/metadata-format/Expense__c.object']))
   .it('no option (markdown)', ctx => {
     const expected = `| label         | fullName      | type     | required |
 | ------------- | ------------- | -------- | -------- |
@@ -18,7 +18,7 @@ describe('parse-salesforce-object', () => {
 
   test
   .stdout()
-  .do(() => cmd.run(['--format=csv', './test/Expense__c.object']))
+  .do(() => cmd.run(['--format=csv', './test/fixtures/metadata-format/Expense__c.object']))
   .it('--format=csv (csv)', ctx => {
     const expected = `"label","fullName","type","required"
 "金額","Amount__c","Number","false"
@@ -31,7 +31,7 @@ describe('parse-salesforce-object', () => {
 
   test
   .stdout()
-  .do(() => cmd.run(['--format=soql', './test/Expense__c.object']))
+  .do(() => cmd.run(['--format=soql', './test/fixtures/metadata-format/Expense__c.object']))
   .it('--format=soql (soql)', ctx => {
     const expected = `SELECT Id,
 Amount__c,
@@ -45,7 +45,7 @@ FROM Expense__c
 
   test
   .stdout()
-  .do(() => cmd.run(['--format=soql', '--namespace=foo', './test/Expense__c.object']))
+  .do(() => cmd.run(['--format=soql', '--namespace=foo', './test/fixtures/metadata-format/Expense__c.object']))
   .it('--format=soql --namespace=foo (soql format with namespace)', ctx => {
     const expected = `SELECT Id,
 foo__Amount__c,
