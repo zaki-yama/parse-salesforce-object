@@ -1,6 +1,6 @@
 {
   "name": "parse-salesforce-object",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV/SOQL format",
   "author": "Shingo Yamazaki",
   "bin": {
@@ -62,6 +62,9 @@
     "lint:eslint": "eslint . --ext .ts --config .eslintrc",
     "lint:ts": "tsc --noEmit",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "prerelease": "run-p lint test",
+    "release": "standard-version",
+    "release:dry-run": "standard-version --dry-run",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
