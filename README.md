@@ -14,6 +14,37 @@ $ npm install -g parse-salesforce-object
 
 ## Usage
 
+This CLI supports 2 types of sObject file formats:
+
+1. Source format: `.object-meta.xml` and `fields/*.field-meta.xml` files, which is used by SalesforceDX
+2. Metadata format: Legacy `.object` file, which is used by Metadata API
+
+In either format, just run the CLI by passing the path of the sObject file.
+
+```zsh
+# Source format (.object-meta.xml)
+$ parse-salesforce-object path/to/CustomObject__c/CustomObject__c.object-meta.xml
+| label       | fullName      | type     | required |
+| ----------- | ------------- | -------- | -------- |
+| Amount      | Amount__c     | Number   | false    |
+| Client      | Client__c     | Text     | false    |
+| Date        | Date__c       | DateTime | false    |
+| Reimbursed? | Reimbursed__c | Checkbox | null     |
+
+# Metadata format (.object)
+$ parse-salesforce-object path/to/CustomObject__c.object-meta.xml
+| label       | fullName      | type     | required |
+| ----------- | ------------- | -------- | -------- |
+| Amount      | Amount__c     | Number   | false    |
+| Client      | Client__c     | Text     | false    |
+| Date        | Date__c       | DateTime | false    |
+| Reimbursed? | Reimbursed__c | Checkbox | null     |
+```
+
+### Supported formats
+
+The CLI supports multiple formats to display:
+
 ```zsh
 # Display as Markdown table
 $ parse-salesforce-object path/to/CustomObject__c.object-meta.xml
@@ -24,7 +55,7 @@ $ parse-salesforce-object path/to/CustomObject__c.object-meta.xml
 | Date        | Date__c       | DateTime | false    |
 | Reimbursed? | Reimbursed__c | Checkbox | null     |
 
-# Use `--format=csv` (or `-f csv`) to display as CSV
+# CSV format: Use `--format=csv` (or `-f csv`)
 $ parse-salesforce-object --format=csv path/to/CustomObject__c.object-meta.xml
 "label","fullName","type","required"
 "Amount","Amount__c","Number","false"
