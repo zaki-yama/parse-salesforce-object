@@ -1,22 +1,10 @@
 import {Command, flags} from '@oclif/command'
-import * as fs from 'fs'
 import * as path from 'path'
 
 import {parse} from 'json2csv'
 import * as table from 'markdown-table'
 import * as stringWidth from 'string-width'
-import {parseString} from 'xml2js'
-
-async function xml2js(xml: string) {
-  return new Promise((resolve, reject) => {
-    parseString(xml, function (err: Error, json: string) {
-      if (err)
-        reject(err)
-      else
-        resolve(json)
-    })
-  })
-}
+import {parseSObjectFile, fieldProperties} from './parsers'
 
 class ParseSalesforceObject extends Command {
   // TODO
@@ -59,6 +47,7 @@ class ParseSalesforceObject extends Command {
 
   async run() {
     const {args, flags} = this.parse(ParseSalesforceObject)
+
     const props = [
       'label',
       'fullName',
@@ -70,23 +59,19 @@ class ParseSalesforceObject extends Command {
       // 'trackTrending',
       // 'unique',
     ]
-    const dataList = []
 
-    const xml = fs.readFileSync(args.path, 'utf-8')
-    try {
-      // FIXME: Avoid `any` type
-      const parsed: any = await xml2js(xml)
-      for (const field of parsed.CustomObject.fields) {
-        // FIXME: Avoid `any` type
-        const data: any = {}
-        for (const property of props) {
-          data[property] = field[property] ? field[property][0] : null
-        }
-        dataList.push(data)
+    // parse sobject file
+    // const Parser = args.path.includes('object-meta.xml') ? SourceFormatParser : MetadataFormatParser
+    const rawFields = await parseSObjectFile(args.path)
+
+    const dataList = []
+    for (const field of rawFields) {
+      const data: any = {}
+      for (const property of fieldProperties) {
+        this.debug(field[property])
+        data[property] = field[property] ? field[property][0] : null
       }
-    // eslint-disable-next-line unicorn/catch-error-name
-    } catch (err) { // tslint:disable-line no-unused
-      this.error('ERROR: Invalid XML format.')
+      dataList.push(data)
     }
 
     let result
