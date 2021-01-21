@@ -9,7 +9,6 @@ import {parseString} from 'xml2js'
 
 async function xml2js(xml: string) {
   return new Promise((resolve, reject) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     parseString(xml, function (err: Error, json: string) {
       if (err)
         reject(err)
@@ -110,6 +109,8 @@ class ParseSalesforceObject extends Command {
       break
     default:
       // markdown
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       result = table([props, ...dataList.map(data => Object.values(data))], {
         stringLength: stringWidth,
       })
