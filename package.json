@@ -2,11 +2,35 @@
   "name": "parse-salesforce-object",
   "version": "0.1.1",
   "description": "Parse Salesforce Custom Object's metadata and convert to Markdown/CSV/SOQL format",
+  "keywords": [
+    "salesforce",
+    "oclif"
+  ],
+  "homepage": "https://github.com/zaki-yama/parse-salesforce-object",
+  "bugs": "https://github.com/zaki-yama/parse-salesforce-object/issues",
+  "repository": "zaki-yama/parse-salesforce-object",
+  "license": "MIT",
   "author": "Shingo Yamazaki",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "bin": {
     "parse-salesforce-object": "./bin/run"
   },
-  "bugs": "https://github.com/zaki-yama/parse-salesforce-object/issues",
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "scripts": {
+    "lint": "run-p -l lint:*",
+    "lint:eslint": "eslint . --ext .ts --config .eslintrc",
+    "lint:ts": "tsc --noEmit",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "prerelease": "run-p lint test",
+    "release": "standard-version",
+    "release:dry-run": "standard-version --dry-run",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  },
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -42,31 +66,7 @@
   "engines": {
     "node": ">=10.1.0"
   },
-  "files": [
-    "/bin",
-    "/lib"
-  ],
-  "homepage": "https://github.com/zaki-yama/parse-salesforce-object",
-  "keywords": [
-    "salesforce",
-    "oclif"
-  ],
-  "license": "MIT",
-  "main": "lib/index.js",
   "oclif": {
     "bin": "parse-salesforce-object"
-  },
-  "repository": "zaki-yama/parse-salesforce-object",
-  "scripts": {
-    "lint": "run-p -l lint:*",
-    "lint:eslint": "eslint . --ext .ts --config .eslintrc",
-    "lint:ts": "tsc --noEmit",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
-    "prerelease": "run-p lint test",
-    "release": "standard-version",
-    "release:dry-run": "standard-version --dry-run",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
-  },
-  "types": "lib/index.d.ts"
+  }
 }
