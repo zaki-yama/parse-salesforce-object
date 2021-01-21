@@ -8,7 +8,8 @@ const expected = {
 | 金額          | Amount__c     | Number   | false    |
 | クライアント  | Client__c     | Text     | false    |
 | 日付          | Date__c       | DateTime | false    |
-| 払い戻し済み? | Reimbursed__c | Checkbox |          |`,
+| 払い戻し済み? | Reimbursed__c | Checkbox |          |
+`,
 
   csv: `"label","fullName","type","required"
 "金額","Amount__c","Number","false"
@@ -39,28 +40,28 @@ describe('Metadata format', () => {
   .stdout()
   .do(() => cmd.run(['./test/fixtures/metadata-format/Expense__c.object']))
   .it('no option (markdown)', ctx => {
-    expect(ctx.stdout).to.contain(expected.markdown)
+    expect(ctx.stdout).to.equal(expected.markdown)
   })
 
   test
   .stdout()
   .do(() => cmd.run(['--format=csv', './test/fixtures/metadata-format/Expense__c.object']))
   .it('--format=csv (csv)', ctx => {
-    expect(ctx.stdout).to.contain(expected.csv)
+    expect(ctx.stdout).to.equal(expected.csv)
   })
 
   test
   .stdout()
   .do(() => cmd.run(['--format=soql', './test/fixtures/metadata-format/Expense__c.object']))
   .it('--format=soql (soql)', ctx => {
-    expect(ctx.stdout).to.contain(expected.soql)
+    expect(ctx.stdout).to.equal(expected.soql)
   })
 
   test
   .stdout()
   .do(() => cmd.run(['--format=soql', '--namespace=foo', './test/fixtures/metadata-format/Expense__c.object']))
   .it('--format=soql --namespace=foo (soql format with namespace)', ctx => {
-    expect(ctx.stdout).to.contain(expected.soql_namespace)
+    expect(ctx.stdout).to.equal(expected.soql_namespace)
   })
 })
 
@@ -69,27 +70,27 @@ describe('Source format', () => {
   .stdout()
   .do(() => cmd.run(['./test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
   .it('no option (markdown)', ctx => {
-    expect(ctx.stdout).to.contain(expected.markdown)
+    expect(ctx.stdout).to.equal(expected.markdown)
   })
 
   test
   .stdout()
   .do(() => cmd.run(['--format=csv', './test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
   .it('--format=csv (csv)', ctx => {
-    expect(ctx.stdout).to.contain(expected.csv)
+    expect(ctx.stdout).to.equal(expected.csv)
   })
 
   test
   .stdout()
   .do(() => cmd.run(['--format=soql', './test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
   .it('--format=soql (soql)', ctx => {
-    expect(ctx.stdout).to.contain(expected.soql)
+    expect(ctx.stdout).to.equal(expected.soql)
   })
 
   test
   .stdout()
   .do(() => cmd.run(['--format=soql', '--namespace=foo', './test/fixtures/source-format/Expense__c/Expense__c.object-meta.xml']))
   .it('--format=soql --namespace=foo (soql format with namespace)', ctx => {
-    expect(ctx.stdout).to.contain(expected.soql_namespace)
+    expect(ctx.stdout).to.equal(expected.soql_namespace)
   })
 })
