@@ -5,6 +5,7 @@ import {parse} from 'json2csv'
 import * as table from 'markdown-table'
 import * as stringWidth from 'string-width'
 import {parseSObjectFile, fieldProperties} from './parsers'
+import {getFormatter} from './formatters'
 
 class ParseSalesforceObject extends Command {
   // TODO
@@ -75,18 +76,22 @@ class ParseSalesforceObject extends Command {
     }
 
     let result
+
     switch (flags.format) {
     case 'soql': {
-      const prefix = flags.namespace ? `${flags.namespace}__` : ''
-      const objName = path.basename(args.path).split('.')[0]
-      const fields = dataList.map(data => {
-        return `${prefix}${data.fullName}`
-      })
-      result = [
-        'SELECT Id,',
-        fields.join(',\n'),
-        `FROM ${prefix}${objName}`,
-      ].join('\n')
+      // const prefix = flags.namespace ? `${flags.namespace}__` : ''
+      // const objName = path.basename(args.path).split('.')[0]
+      // const fields = dataList.map(data => {
+      //   return `${prefix}${data.fullName}`
+      // })
+      // result = [
+      //   'SELECT Id,',
+      //   fields.join(',\n'),
+      //   `FROM ${prefix}${objName}`,
+      // ].join('\n')
+      // break
+      const formatter = getFormatter('soql')
+      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path})
       break
     }
     case 'csv':
