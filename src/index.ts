@@ -1,7 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import * as path from 'path'
 
-import {parse} from 'json2csv'
 import * as table from 'markdown-table'
 import * as stringWidth from 'string-width'
 import {parseSObjectFile, fieldProperties} from './parsers'
@@ -79,24 +77,17 @@ class ParseSalesforceObject extends Command {
 
     switch (flags.format) {
     case 'soql': {
-      // const prefix = flags.namespace ? `${flags.namespace}__` : ''
-      // const objName = path.basename(args.path).split('.')[0]
-      // const fields = dataList.map(data => {
-      //   return `${prefix}${data.fullName}`
-      // })
-      // result = [
-      //   'SELECT Id,',
-      //   fields.join(',\n'),
-      //   `FROM ${prefix}${objName}`,
-      // ].join('\n')
-      // break
       const formatter = getFormatter('soql')
       result = formatter.format(dataList, {namespace: flags.namespace, path: args.path})
       break
     }
-    case 'csv':
-      result = parse(dataList, {fields: props})
+    case 'csv': {
+      const formatter = getFormatter('csv')
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
       break
+    }
     default:
       // markdown
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
