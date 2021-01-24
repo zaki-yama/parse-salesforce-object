@@ -1,6 +1,6 @@
 import {soqlFormatter} from './soql-formatter'
 import {csvFormatter} from './csv-formatter'
-import {markdownFormatter} from './markdown-formater'
+import {markdownFormatter} from './markdown-formatter'
 import {Field} from '../fields'
 
 export type Options = {
