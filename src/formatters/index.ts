@@ -1,7 +1,7 @@
 import {soqlFormatter} from './soql-formatter'
 import {csvFormatter} from './csv-formatter'
 import {markdownFormatter} from './markdown-formater'
-import {Field} from '../parsers'
+import {Field} from '../fields'
 
 export type Options = {
   fieldNames: string[];
