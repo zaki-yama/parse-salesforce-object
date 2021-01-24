@@ -1,7 +1,5 @@
 import {Command, flags} from '@oclif/command'
 
-import * as table from 'markdown-table'
-import * as stringWidth from 'string-width'
 import {parseSObjectFile, fieldProperties} from './parsers'
 import {getFormatter} from './formatters'
 
@@ -78,7 +76,9 @@ class ParseSalesforceObject extends Command {
     switch (flags.format) {
     case 'soql': {
       const formatter = getFormatter('soql')
-      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path})
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
       break
     }
     case 'csv': {
@@ -88,13 +88,13 @@ class ParseSalesforceObject extends Command {
       result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
       break
     }
-    default:
-      // markdown
+    default: {
+      const formatter = getFormatter('markdown')
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      result = table([props, ...dataList.map(data => Object.values(data))], {
-        stringLength: stringWidth,
-      })
+      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
+      break
+    }
     }
     this.log(result)
   }
