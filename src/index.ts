@@ -71,31 +71,10 @@ class ParseSalesforceObject extends Command {
       dataList.push(data)
     }
 
-    let result
-
-    switch (flags.format) {
-    case 'soql': {
-      const formatter = getFormatter('soql')
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
-      break
-    }
-    case 'csv': {
-      const formatter = getFormatter('csv')
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
-      break
-    }
-    default: {
-      const formatter = getFormatter('markdown')
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
-      break
-    }
-    }
+    const formatter = getFormatter(flags.format as 'soql' | 'markdown' |'csv')
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const result = formatter.format(dataList, {namespace: flags.namespace, path: args.path, fieldNames: fieldProperties})
     this.log(result)
   }
 }
