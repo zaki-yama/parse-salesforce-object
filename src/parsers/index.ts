@@ -1,19 +1,11 @@
-import {parseSourceFormat} from './source-format'
-import {parseMetadataFormat} from './metadata-format'
+import {sourceFormatParser} from './source-format-parser'
+import {metadataFormatParser} from './metadata-format-parser'
+import {RawField} from '../fields'
 
-export const fieldProperties = [
-  'label',
-  'fullName',
-  'type',
-  'required',
-] as const
-
-type FieldProperty = typeof fieldProperties[number];
-
-export type Field = {
-  [property in FieldProperty]: string;
+export type Parser = {
+  parse: (sObjectPath: string) => Promise<RawField[]>;
 }
 
-export function parseSObjectFile(objectFilePath: string) {
-  return objectFilePath.includes('object-meta.xml') ? parseSourceFormat(objectFilePath) : parseMetadataFormat(objectFilePath)
+export function getParser(objectFilePath: string): Parser {
+  return objectFilePath.includes('object-meta.xml') ? sourceFormatParser : metadataFormatParser
 }
