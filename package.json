@@ -37,7 +37,7 @@
     "@oclif/plugin-help": "^3",
     "glob": "^7.1.6",
     "json2csv": "^5.0.5",
-    "markdown-table": "^2.0.0",
+    "markdown-table": "^3.0.0",
     "string-width": "^4.2.0",
     "tslib": "^1",
     "xml2js": "^0.4.23"
