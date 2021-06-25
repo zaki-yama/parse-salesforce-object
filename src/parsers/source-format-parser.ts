@@ -14,7 +14,7 @@ async function fetchField(fieldFilePath: string) {
 export const sourceFormatParser: Parser = {
   parse: async function (objectFilePath: string) {
     const promises = glob.sync(
-      path.resolve(objectFilePath, '..', 'fields', '*.field-meta.xml')
+      path.resolve(objectFilePath, '..', 'fields', '*.field-meta.xml'),
     )
     .map(fieldFilePath => fetchField(fieldFilePath))
     const fields = await Promise.all(promises)
