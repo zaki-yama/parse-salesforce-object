@@ -3,7 +3,7 @@ import * as glob from "glob";
 import * as path from "path";
 import { parseStringPromise } from "xml2js";
 
-import { Parser } from ".";
+import type { Parser } from ".";
 
 async function fetchField(fieldFilePath: string) {
   const xml = await fs.readFile(fieldFilePath);

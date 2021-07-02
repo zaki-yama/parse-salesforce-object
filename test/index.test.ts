@@ -26,6 +26,7 @@ Reimbursed__c
 FROM Expense__c
 `,
 
+  // eslint-disable-next-line @typescript-eslint/camelcase
   soql_namespace: `SELECT Id,
 foo__Amount__c,
 foo__Client__c,

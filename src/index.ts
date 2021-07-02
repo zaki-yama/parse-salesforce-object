@@ -2,7 +2,7 @@ import { Command, flags } from "@oclif/command";
 
 import { getParser } from "./parsers";
 import { getFormatter } from "./formatters";
-import { RawField } from "./fields";
+import type { RawField, Field } from "./fields";
 
 const FIELD_NAMES = ["label", "fullName", "type", "required"];
 
@@ -47,7 +47,8 @@ class ParseSalesforceObject extends Command {
     },
   ];
 
-  async run() {
+  async run(): Promise<void> {
+    // eslint-disable-next-line no-shadow
     const { args, flags } = this.parse(ParseSalesforceObject);
 
     const parser = getParser(args.path);
@@ -65,7 +66,7 @@ class ParseSalesforceObject extends Command {
     this.log(result);
   }
 
-  extractFields(rawFields: RawField[], fieldNames: string[]) {
+  extractFields(rawFields: RawField[], fieldNames: string[]): Field[] {
     return rawFields.map((rawField) => {
       const field: any = {};
       fieldNames.forEach((fieldName) => {

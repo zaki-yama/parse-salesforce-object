@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import { parseStringPromise } from "xml2js";
 
-import { Parser } from ".";
+import type { Parser } from ".";
 
 export const metadataFormatParser: Parser = {
   parse: async function (objectFilePath: string) {
