@@ -48,7 +48,7 @@
     "@oclif/test": "1.2.8",
     "@types/chai": "4.2.20",
     "@types/jest": "26.0.24",
-    "@types/json2csv": "5.0.2",
+    "@types/json2csv": "5.0.3",
     "@types/markdown-table": "2.0.0",
     "@types/node": "14.17.4",
     "@types/string-width": "4.0.1",
