@@ -46,7 +46,7 @@
     "@cybozu/eslint-config": "14.0.3",
     "@oclif/dev-cli": "1.26.0",
     "@oclif/test": "1.2.8",
-    "@types/chai": "4.2.21",
+    "@types/chai": "4.2.22",
     "@types/jest": "26.0.24",
     "@types/json2csv": "5.0.3",
     "@types/markdown-table": "2.0.0",
