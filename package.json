@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@cybozu/eslint-config": "14.0.3",
-    "@oclif/dev-cli": "1.26.0",
+    "@oclif/dev-cli": "1.26.1",
     "@oclif/test": "1.2.8",
     "@types/chai": "4.2.22",
     "@types/jest": "26.0.24",
