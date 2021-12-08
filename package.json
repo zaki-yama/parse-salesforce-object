@@ -43,7 +43,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@cybozu/eslint-config": "14.0.3",
+    "@cybozu/eslint-config": "16.0.1",
     "@oclif/dev-cli": "1.26.8",
     "@oclif/test": "1.2.8",
     "@types/chai": "4.2.22",
